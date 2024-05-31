@@ -23,6 +23,7 @@ public class CategoryRestImpl implements CategoryRest {
     @Override
     public ResponseEntity<String> addCategory(Map<String, String> requestMap) {
        try {
+        
         return categoryService.addNewCategory(requestMap);
        } catch (Exception e) {
         e.printStackTrace();

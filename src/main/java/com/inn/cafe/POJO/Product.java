@@ -11,11 +11,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 import java.io.Serializable;
 
+@NamedQuery(name = "Product.getAllProduct",query = "select new com.inn.cafe.wrapper.ProductWrapper(p.id,p.name,p.description,p.price,p.status,p.category.id,p.category.name) from Product p" )
 @Data
 @Entity
 @DynamicInsert
@@ -23,7 +25,7 @@ import java.io.Serializable;
 @Table(name = "product")
 public class Product implements Serializable {
 
-    private static final long serialVersionUID = 123456L; 
+    private static final long serialVersionUID = 1L; 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,12 +39,12 @@ public class Product implements Serializable {
     @JoinColumn(name = "category_fk",nullable = false)
     private Category category;
 
-    @Column(name = "descrption")
+    @Column(name = "description")
     private String description;
 
     @Column(name = "price")
     private Integer price;
 
-
-    
+    @Column(name = "status")
+    private String status; 
 }

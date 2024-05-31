@@ -16,6 +16,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
@@ -32,7 +33,7 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException 
     {
-        if(request.getServletPath().matches("/user/login|/user/forgotPassword|/user/signup"))
+        if(request.getServletPath().matches("/user/login|/user/forgetPassword|/user/signup|/user/changePasswordToken"))
         {
             filterChain.doFilter(request, response);
         }
@@ -73,7 +74,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     public boolean isUser()
     {
-        return "admiusern".equalsIgnoreCase((String)claims.get("role"));
+        return "user".equalsIgnoreCase((String)claims.get("role"));
     }
 
     public String getCurrentUser()
