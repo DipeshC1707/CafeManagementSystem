@@ -119,5 +119,48 @@ public class ProductServiceImpl implements ProductService {
         }
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public ResponseEntity<String> deleteProduct(Integer id) {
+        try {
+            if(jwtFilter.isAdmin())
+            {
+                 Optional<Product> optional = productDao.findById(id);
+                 if(!optional.isEmpty()){
+                    productDao.deleteById(id);
+                    return CafeUtils.getResponseEntity("Product deleted successfully", HttpStatus.OK);
+                 }else{
+                    return CafeUtils.getResponseEntity("Product id doesn't exist.",HttpStatus.BAD_REQUEST);
+                 }
+            }
+            else{
+                return CafeUtils.getResponseEntity(CafeConstants.UNAUTHORIZED_ACCESS,HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<String> updateStatus(Map<String, String> requestMap) {
+        try {
+            if(jwtFilter.isAdmin())
+            {
+                Optional<Product>optional = productDao.findById(Integer.parseInt(requestMap.get("id")));
+                if(!optional.isEmpty()){
+                    productDao.updateProductStatus(requestMap.get("status"),Integer.parseInt(requestMap.get("id")));
+                    return CafeUtils.getResponseEntity("Product Status Updated successfully", HttpStatus.OK);
+                }else{
+                    return CafeUtils.getResponseEntity("Product Id doesn't exist.", HttpStatus.BAD_REQUEST);
+                }
+            }else{
+                return CafeUtils.getResponseEntity(CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     
 }
