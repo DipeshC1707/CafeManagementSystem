@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.inn.cafe</groupId>
 	<artifactId>com.inn.cafe</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Cafe Management System</name>
 	<description>Cafe Management System</description>
 	<properties>

@@ -67,11 +67,11 @@ public class UserRestImpl implements UserRest{
     @Override
     public ResponseEntity<String> checkToken() {
        try {
-            userService.checkToken();
+            return userService.checkToken();
        } catch (Exception e) {
             e.printStackTrace();
        }
-       return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+       return CafeUtils.getResponseEntity("OLALALLA", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
